@@ -1,0 +1,33 @@
+{%extends "layout.html"%}
+{% block content %}
+<div class="fullWidth">
+    {% if message %}
+    <div class="successMessage">
+        <h2>{{ message }}</h2>
+    </div>
+    {% endif %}
+    {% if json %} 
+            <h3>Formatted Text</h3>
+            <div class="fullText dataFont">
+                <textarea class="form-control" id="Formatted" name="Formatted" cols="100" rows="10" style="background-color:#F2F2F2;">{{ json }}</textarea>
+            </div>
+            
+    {% endif %}
+    <form method="POST" action="/removeLineBreaks">
+        <div class="form-group">
+            <div class="fullText">
+            <h3>Original Text</h3>
+            <div class="dataFont">
+            {% if original %}
+            <textarea class="form-control" id="Original" name="Original" cols="100" rows="15" style="background-color:#F2F2F2;">{{ original }}</textarea>
+            {% else %}
+            <textarea class="form-control" id="Original" name="Original" cols="100" rows="15" style="background-color:#F2F2F2;"></textarea>
+            {% endif %}
+            </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Remove Line Breaks</button>
+    </form>
+
+</div>
+{%endblock%}

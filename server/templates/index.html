@@ -1,0 +1,24 @@
+{%extends "layout.html"%}
+{% block content %}
+<div class="fullWidth">
+     {% if message %}
+          <h1 class=success><strong>{{ message }}</strong></h1>
+     {% endif %} 
+    
+    <h2>Popular Tools</h2>
+    <div class="flexContainer">
+        <div class="flexToolContainer">
+            <h4><a href="/addPrefixSuffix" class="link-primary">Add Prefix / Suffix</a></h4>
+        </div>
+        <div class="flexToolContainer">
+            <h4><a href="/removeLineBreaks" class="link-primary">Remove Line Breaks</a></h4>
+        </div>
+        <div class="flexToolContainer">
+            <h4><a href="/removeLineNumbering" class="link-primary">Remove Line Numbering</a></h4>
+        </div>
+    </div>
+    
+
+</div>
+
+{%endblock%}
