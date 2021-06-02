@@ -13,10 +13,12 @@
             </div>
             
     {% endif %}
-    <form method="POST" action="/addPrefixSuffix">
+    <form method="POST" action="/addPrefixSuffix" enctype="multipart/form-data">
         <div class="form-group">
             <div class="flexContainer">
                 <div class="flexsideRowCenter">
+                    {{ form.csrf_token }}
+                    
                     <h3>Prefix</h3>
                     <div class="dataFont">
                     {% if prefix %}
@@ -48,6 +50,16 @@
             <textarea class="form-control" id="Original" name="Original" cols="100" rows="15" style="background-color:#F2F2F2;"></textarea>
             {% endif %}
             </div>
+            </div>
+        </div>
+        <div class="flexContainer">
+            <div class="flexsideRowCenter">
+                <h5>Upload Text File</h5>
+                {{ form.textUpload() }}
+            </div>
+            <div class="flexsideRowCenter">
+                <h5>Download Results</h5>
+                {{ form.textUpload() }}
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Add Prefix Suffix</button>
