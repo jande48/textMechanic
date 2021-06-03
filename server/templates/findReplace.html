@@ -16,10 +16,36 @@
             </div>
             
     {% endif %}
-    <form method="POST" action="/removeLineBreaks" enctype="multipart/form-data">
+    <form method="POST" action="/findReplace" enctype="multipart/form-data">
+        <div class="form-group">
+            <h2>Find and Replace</h2>
+            <div class="flexContainer">
+                <div class="flexsideRowCenter">
+                    {{ form.csrf_token }}
+                    
+                    <h3>Find</h3>
+                    <div class="dataFont">
+                    {% if find %}
+                    <input class="form-control" id="Find" name="Find" style="background-color:#F2F2F2;" value="{{ find }}"></input>
+                    {% else %}
+                    <input class="form-control" id="Find" name="Find" style="background-color:#F2F2F2;"></input>
+                    {% endif %}
+                    </div>
+                </div>
+                <div class="flexsideRowCenter">
+                    <h3>Replace</h3>
+                    <div class="dataFont">
+                    {% if replace %}
+                    <input class="form-control" id="Replace" name="Replace" style="background-color:#F2F2F2;" value="{{ replace }}"></input>
+                    {% else %}
+                    <input class="form-control" id="Replace" name="Replace" style="background-color:#F2F2F2;"></input>
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="form-group">
             <div class="fullText">
-            <h2>Remove Line Breaks</h2>
             <h3>Original Text</h3>
             <div class="dataFont">
             {% if original %}
@@ -35,7 +61,7 @@
             <h3>Upload Text File</h3>
             <h4><div style="text-align:center;">{{ form.textUpload() }}</div></h4>
         </div>
-        <button type="submit" class="btn btn-primary btn-lg">Remove Line Breaks</button>
+        <button type="submit" class="btn btn-primary btn-lg">Find and Replace</button>
     </form>
 
 </div>

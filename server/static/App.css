@@ -97,7 +97,12 @@ font-family: asource-code-pro, Menlo, Monaco, Consolas, 'Courier New',
   .App {
     text-align: center;
   }
-  
+  #textUpload {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 100px;
+  }
   .App-logo {
     height: 40vmin;
     pointer-events: none;

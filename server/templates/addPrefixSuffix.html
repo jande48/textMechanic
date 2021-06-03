@@ -7,6 +7,9 @@
     </div>
     {% endif %}
     {% if json %} 
+            <a href="/downloads/{{ randomNum }}.txt" target="_blank">
+                <button type="submit" class="btn btn-primary btn-lg">Download Text File</button>
+            </a>
             <h3>Formatted Text</h3>
             <div class="fullText dataFont">
                 <textarea class="form-control" id="Formatted" name="Formatted" cols="100" rows="10" style="background-color:#F2F2F2;">{{ json }}</textarea>
@@ -15,6 +18,7 @@
     {% endif %}
     <form method="POST" action="/addPrefixSuffix" enctype="multipart/form-data">
         <div class="form-group">
+            <h2>Add Prefix and/or Suffix</h2>
             <div class="flexContainer">
                 <div class="flexsideRowCenter">
                     {{ form.csrf_token }}
@@ -52,17 +56,12 @@
             </div>
             </div>
         </div>
-        <div class="flexContainer">
-            <div class="flexsideRowCenter">
-                <h5>Upload Text File</h5>
-                {{ form.textUpload() }}
-            </div>
-            <div class="flexsideRowCenter">
-                <h5>Download Results</h5>
-                {{ form.textUpload() }}
-            </div>
+        <div>
+            <h1>--- OR ---</h1>
+            <h3>Upload Text File</h3>
+            <h4><div style="text-align:center;">{{ form.textUpload() }}</div></h4>
         </div>
-        <button type="submit" class="btn btn-primary">Add Prefix Suffix</button>
+        <button type="submit" class="btn btn-primary btn-lg">Add Prefix Suffix</button>
     </form>
 
 </div>

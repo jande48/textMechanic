@@ -6,16 +6,20 @@
         <h2>{{ message }}</h2>
     </div>
     {% endif %}
-    {% if json %} 
+    {% if json %}
+            <a href="/downloads/{{ randomNum }}.txt" target="_blank">
+                <button type="submit" class="btn btn-primary btn-lg">Download Text File</button>
+            </a> 
             <h3>Formatted Text</h3>
             <div class="fullText dataFont">
                 <textarea class="form-control" id="Formatted" name="Formatted" cols="100" rows="10" style="background-color:#F2F2F2;">{{ json }}</textarea>
             </div>
             
     {% endif %}
-    <form method="POST" action="/removeLineNumbering">
+    <form method="POST" action="/removeLineNumbering" enctype="multipart/form-data">
         <div class="form-group">
             <div class="fullText">
+            <h2>Remove Line Numbering</h2>
             <h3>Original Text</h3>
             <div class="dataFont">
             {% if original %}
@@ -26,7 +30,12 @@
             </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Remove Line Numbering</button>
+        <div>
+            <h1>--- OR ---</h1>
+            <h3>Upload Text File</h3>
+            <h4><div style="text-align:center;">{{ form.textUpload() }}</div></h4>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg">Remove Line Numbering</button>
     </form>
 
 </div>
