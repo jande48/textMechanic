@@ -3,9 +3,10 @@
 <div class="fullWidth">
     {% if message %}
     <div class="successMessage">
-        <h2>{{ message }}</h2>
+        <h3>{{ message }}</h3>
     </div>
     {% endif %}
+    <h2>Add Prefix and/or Suffix</h2>
     {% if json %} 
             <a href="/downloads/{{ randomNum }}.txt" target="_blank">
                 <button type="submit" class="btn btn-primary btn-lg">Download Text File</button>
@@ -18,7 +19,7 @@
     {% endif %}
     <form method="POST" action="/addPrefixSuffix" enctype="multipart/form-data">
         <div class="form-group">
-            <h2>Add Prefix and/or Suffix</h2>
+            
             <div class="flexContainer">
                 <div class="flexsideRowCenter">
                     {{ form.csrf_token }}
@@ -59,7 +60,14 @@
         <div>
             <h1>--- OR ---</h1>
             <h3>Upload Text File</h3>
-            <h4><div style="text-align:center;">{{ form.textUpload() }}</div></h4>
+            <div class="flexContainerUpload">
+                <div class="flexsideLeftUpload">
+                    <h4>{{ form.textUpload() }}</h4>
+                </div>
+                <div class="flexsideRightUpload">
+                    <h4><button type="submit" class="btn btn-primary">Load File</button></h4>
+                </div>
+            </div>
         </div>
         <button type="submit" class="btn btn-primary btn-lg">Add Prefix Suffix</button>
     </form>

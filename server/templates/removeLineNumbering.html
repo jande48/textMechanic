@@ -3,9 +3,10 @@
 <div class="fullWidth">
     {% if message %}
     <div class="successMessage">
-        <h2>{{ message }}</h2>
+        <h3>{{ message }}</h3>
     </div>
     {% endif %}
+    <h2>Remove Line Numbering</h2>
     {% if json %}
             <a href="/downloads/{{ randomNum }}.txt" target="_blank">
                 <button type="submit" class="btn btn-primary btn-lg">Download Text File</button>
@@ -19,7 +20,7 @@
     <form method="POST" action="/removeLineNumbering" enctype="multipart/form-data">
         <div class="form-group">
             <div class="fullText">
-            <h2>Remove Line Numbering</h2>
+            
             <h3>Original Text</h3>
             <div class="dataFont">
             {% if original %}
@@ -33,7 +34,14 @@
         <div>
             <h1>--- OR ---</h1>
             <h3>Upload Text File</h3>
-            <h4><div style="text-align:center;">{{ form.textUpload() }}</div></h4>
+            <div class="flexContainerUpload">
+                <div class="flexsideLeftUpload">
+                    <h4>{{ form.textUpload() }}</h4>
+                </div>
+                <div class="flexsideRightUpload">
+                    <h4><button type="submit" class="btn btn-primary">Load File</button></h4>
+                </div>
+            </div>
         </div>
         <button type="submit" class="btn btn-primary btn-lg">Remove Line Numbering</button>
     </form>

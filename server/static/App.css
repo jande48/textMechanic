@@ -51,6 +51,25 @@ font-family: asource-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     /* width: 50%; */
     text-align: right;
   }
+  .flexContainerUpload {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+  }
+  .flexsideLeftUpload {
+    display: inline-block;
+    /* flex: 1 0;
+    margin-right: 0; */
+    /* width: 50%; */
+    text-align: right;
+  }
+  .flexsideRightUpload {
+    display: inline-block;
+    /* flex: 1 0;
+    margin: 0; */
+    text-align: left;
+  }
   .flexsideRowCenter {
     flex: 1 auto;
     margin: 10px 10px 10px 10px;
@@ -97,11 +116,21 @@ font-family: asource-code-pro, Menlo, Monaco, Consolas, 'Courier New',
   .App {
     text-align: center;
   }
+
+  .flexContainerUpload{
+    flex: 1 1 0px;
+    text-align: center;
+    /* border-collapse: separate; */
+    overflow: hidden;
+    perspective: 1px; 
+  }
+
   #textUpload {
     display: block;
-    margin-right: auto;
-    margin-left: auto;
-    padding-left: 100px;
+    margin-right: 0px;
+    margin-left: 0px; 
+    padding-left: 0px;
+    padding-right: 0px;
   }
   .App-logo {
     height: 40vmin;
