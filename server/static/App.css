@@ -70,6 +70,21 @@ font-family: asource-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     margin: 0; */
     text-align: left;
   }
+  .flexsideLeftSelect {
+    display: inline-block;
+    /* flex: 1 0;
+    margin-right: 0; */
+    /* width: 50%; */
+    text-align: right;
+    margin-right: 10px;
+  }
+  .flexsideRightSelect {
+    display: inline-block;
+    /* flex: 1 0;
+    margin: 0; */
+    text-align: left;
+    margin-left: 10px;
+  }
   .flexsideRowCenter {
     flex: 1 auto;
     margin: 10px 10px 10px 10px;

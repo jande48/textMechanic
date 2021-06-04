@@ -33,7 +33,7 @@ class MyForm(FlaskForm):
 # Create a route to download the chosen text file
 @app.route('/downloads/<path>', methods=['GET', 'POST'])
 def download(path):
-    newPath = 'textFiles\\downloads\\'+path
+    newPath = 'textFiles/downloads/'+path
     return send_file(newPath, as_attachment=True)
 
 @app.route('/')
@@ -41,6 +41,11 @@ def home():
     app.route('/')
     return render_template("index.html")
 
+@app.route('/addPrefixSuffix/clear',methods=['POST','GET'])
+def addPrefixSuffixClear():
+    form = MyForm()
+    return render_template("addPrefixSuffix.html", form=form)
+    
 @app.route('/addPrefixSuffix',methods=['POST','GET'])
 def addPrefixSuffix():
 
@@ -55,7 +60,8 @@ def addPrefixSuffix():
     else:
         
         # if theres an attached file, then open it and read lines
-        if len(form.textUpload.data.filename) > 0:
+
+        if not isinstance(form.textUpload.data, str):
             filename = textFiles.save(form.textUpload.data)
             f = open("./textFiles/uploads/"+filename, "r")
             splitLinesString = f.readlines()
@@ -103,7 +109,7 @@ def removeLineBreaks():
 
     # if there's a POST request sending data, then get the data
     else:
-        if len(form.textUpload.data.filename) > 0:
+        if not isinstance(form.textUpload.data, str):
             filename = textFiles.save(form.textUpload.data)
             f = open("./textFiles/uploads/"+filename, "r")
             splitLinesString = f.readlines()
@@ -142,7 +148,7 @@ def removeLineNumbering():
 
     # if there's a POST request sending data, then get the data
     else:
-        if len(form.textUpload.data.filename) > 0:
+        if not isinstance(form.textUpload.data, str):
             filename = textFiles.save(form.textUpload.data)
             f = open("./textFiles/uploads/"+filename, "r")
             splitLinesString = f.readlines()
@@ -188,7 +194,7 @@ def findReplace():
         return render_template("findReplace.html", form=form)
     
     else:
-        if len(form.textUpload.data.filename) > 0:
+        if not isinstance(form.textUpload.data, str):
             filename = textFiles.save(form.textUpload.data)
             f = open("./textFiles/uploads/"+filename, "r")
             splitLinesString = f.readlines()
