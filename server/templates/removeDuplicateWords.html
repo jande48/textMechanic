@@ -6,29 +6,30 @@
         <h3>{{ message }}</h3>
     </div>
     {% endif %}
-    <h2>Remove Line Numbering</h2>
-    {% if json %}
+    <h2>Remove Duplicate Words</h2>
+    {% if json %} 
             <a href="/downloads/{{ randomNum }}.txt" target="_blank">
                 <button type="submit" class="btn btn-primary btn-lg">Download Text File</button>
-            </a> 
+            </a>
             <h3>Formatted Text</h3>
             <div class="fullText dataFont">
                 <textarea class="form-control" id="Formatted" name="Formatted" cols="100" rows="10" style="background-color:#F2F2F2;">{{ json }}</textarea>
             </div>
             
     {% endif %}
-    <form method="POST" id="myForm" action="/removeLineNumbering" enctype="multipart/form-data">
+    <form method="POST" id="myForm" action="/removeDuplicateWords" enctype="multipart/form-data">
+        <!-- Add a csrf token to avoid posts from other domains -->
+        {{ form.csrf_token }}
         <div class="form-group">
             <div class="fullText">
-            
-            <h3>Original Text</h3>
-            <div class="dataFont">
-            {% if original %}
-            <textarea class="form-control" id="Original" name="Original" cols="100" rows="15" style="background-color:#F2F2F2;">{{ original }}</textarea>
-            {% else %}
-            <textarea class="form-control" id="Original" name="Original" cols="100" rows="15" style="background-color:#F2F2F2;"></textarea>
-            {% endif %}
-            </div>
+                <h3>Original Text</h3>
+                <div class="dataFont">
+                {% if original %}
+                <textarea class="form-control" id="Original" name="Original" cols="100" rows="15" style="background-color:#F2F2F2;">{{ original }}</textarea>
+                {% else %}
+                <textarea class="form-control" id="Original" name="Original" cols="100" rows="15" style="background-color:#F2F2F2;"></textarea>
+                {% endif %}
+                </div>
             </div>
         </div>
         <div class="flexContainerUpload">
@@ -51,9 +52,8 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary btn-lg">Remove Line Numbering</button>
+        <button type="submit" class="btn btn-primary btn-lg">Remove Duplicate Words</button>
     </form>
-
 </div>
 
 {%endblock%}

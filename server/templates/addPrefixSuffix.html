@@ -17,7 +17,7 @@
             </div>
             
     {% endif %}
-    <form method="POST" action="/addPrefixSuffix" enctype="multipart/form-data">
+    <form method="POST" id="myForm" action="/addPrefixSuffix" enctype="multipart/form-data">
         <div class="form-group">
             
             <div class="flexContainer">
@@ -59,7 +59,7 @@
         </div>
         <div class="flexContainerUpload">
             <div class="flexsideLeftSelect">
-                <h4><input type="button" onclick="this.form.reset();" class="btn btn-danger" value="Clear Form"></h4>
+                <h4><input type="button" onclick="clearAllText();" class="btn btn-danger" value="Clear Form"></h4>
             </div>
             <div class="flexsideRightSelect">
                 <h4><input type="button" onclick="selectAllText();" class="btn btn-primary" value="Select All"></h4>
@@ -81,10 +81,5 @@
     </form>
 
 </div>
-<script>
-    function selectAllText() {
-        const orig = document.getElementById("Original");
-        orig.select()
-    }
- </script>
+
 {%endblock%}

@@ -29,5 +29,17 @@
     </div>
     <!-- Import Bootstrap CSS formatting -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script>
+      // this javascript function is called by the select button to get the 'original' HTML
+      // element and select it's text
+      function selectAllText() {
+          const orig = document.getElementById("Original");
+          orig.select()
+      }
+      // this javascript function selects the 'Original' HTML form element and resets it's text
+      function clearAllText() {
+          document.getElementById("myForm").reset();
+      }
+    </script>
   </body>
 </html>

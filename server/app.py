@@ -1,12 +1,9 @@
 from flask import Flask,  render_template, request, send_file
 import json, random, os
-# import flask WT forms
 from flask_wtf import FlaskForm
 from wtforms import FileField
-
 # import flask uploads
 from flask_uploads import configure_uploads, UploadSet
-
 
 app=Flask(__name__)
 
@@ -58,10 +55,8 @@ def addPrefixSuffix():
 
     # if there's a POST request sending data, then get the data
     else:
-        
         # if theres an attached file, then open it and read lines
-
-        if not isinstance(form.textUpload.data, str):
+        if len(form.textUpload.data.filename) > 0:
             filename = textFiles.save(form.textUpload.data)
             f = open("./textFiles/uploads/"+filename, "r")
             splitLinesString = f.readlines()
@@ -109,7 +104,7 @@ def removeLineBreaks():
 
     # if there's a POST request sending data, then get the data
     else:
-        if not isinstance(form.textUpload.data, str):
+        if len(form.textUpload.data.filename) > 0:
             filename = textFiles.save(form.textUpload.data)
             f = open("./textFiles/uploads/"+filename, "r")
             splitLinesString = f.readlines()
@@ -117,8 +112,6 @@ def removeLineBreaks():
             originalFromFile = "".join(splitLinesString)
             return render_template("removeLineBreaks.html",original=originalFromFile,form=form)
 
-        
-        
         else: 
             original = request.form['Original']
             # create a blank 'out' array
@@ -148,7 +141,7 @@ def removeLineNumbering():
 
     # if there's a POST request sending data, then get the data
     else:
-        if not isinstance(form.textUpload.data, str):
+        if len(form.textUpload.data.filename) > 0:
             filename = textFiles.save(form.textUpload.data)
             f = open("./textFiles/uploads/"+filename, "r")
             splitLinesString = f.readlines()
@@ -184,7 +177,6 @@ def removeLineNumbering():
             # using Jinja return the data to the template
             return render_template("removeLineNumbering.html", message=message, json=outFormmatted, original=original, form=form, randomNum=randomNum)
 
-
 @app.route('/findReplace',methods=['POST','GET'])
 def findReplace():
     form = MyForm()
@@ -194,7 +186,7 @@ def findReplace():
         return render_template("findReplace.html", form=form)
     
     else:
-        if not isinstance(form.textUpload.data, str):
+        if len(form.textUpload.data.filename) > 0:
             filename = textFiles.save(form.textUpload.data)
             f = open("./textFiles/uploads/"+filename, "r")
             splitLinesString = f.readlines()
@@ -208,7 +200,6 @@ def findReplace():
             original = request.form['Original']
             out = []
 
-            
             splitLinesString = original.splitlines()
             # loop through each line
             for i in splitLinesString:
@@ -226,6 +217,101 @@ def findReplace():
             message = 'Successfully Found and Replaced'
             # using Jinja return the data to the template
             return render_template("findReplace.html", message=message, json=outFormmatted, original=original, find=find, replace=replace, form=form, randomNum=randomNum)
+
+@app.route('/removeDuplicateLines',methods=['POST','GET'])
+def removeDuplicateLines():
+    form = MyForm()
+    # If there a get request, just return the html template
+    if request.method == "GET":
+        return render_template("removeDuplicateLines.html", form=form)
+    # or for post requests:
+    else:
+        # check to see if there's an attached file
+        if len(form.textUpload.data.filename) > 0:
+            # if so, create text file in uploads and add the posted data from the user
+            filename = textFiles.save(form.textUpload.data)
+            f = open("./textFiles/uploads/"+filename, "r")
+            splitLinesString = f.readlines()
+            f.close()
+            originalFromFile = "".join(splitLinesString)
+            # then return the text file in the 'original' text box
+            return render_template("removeDuplicateLines.html",original=originalFromFile,form=form)
+        else:
+            # if there's no attached file, then take the data from the form boxes
+            original = request.form['Original']
+            out = []
+
+            splitLinesString = original.splitlines()
+            # loop through each line
+            for i in splitLinesString:
+                # check if the line is aleady in out, if not, then add it
+                if i not in out:
+                    out.append(i)
+
+            # join each line into one string separated by \n so HTML makes a new line
+            outFormmatted = '\n'.join(out)
+            randomNum = random.randint(0,999)
+
+            # create a text file of the formatted data, if the user would like to download
+            outputTextFile = open("./textFiles/downloads/"+str(randomNum)+".txt","w")
+            for i in outFormmatted:
+                outputTextFile.writelines(i)
+            outputTextFile.close()
+            message = 'Successfully Removed Duplicate Lines'
+            # using Jinja return the data to the template
+            return render_template("removeDuplicateLines.html", message=message, json=outFormmatted, original=original, form=form, randomNum=randomNum)
+
+@app.route('/removeDuplicateWords',methods=['POST','GET'])
+def removeDuplicateWords():
+    form = MyForm()
+    # If there a get request, just return the html template
+    if request.method == "GET":
+        return render_template("removeDuplicateWords.html", form=form)
+    # or for post requests:
+    else:
+        # check to see if there's an attached file
+        if len(form.textUpload.data.filename) > 0:
+            # if so, create text file in uploads and add the posted data from the user
+            filename = textFiles.save(form.textUpload.data)
+            f = open("./textFiles/uploads/"+filename, "r")
+            splitLinesString = f.readlines()
+            f.close()
+            originalFromFile = "".join(splitLinesString)
+            # then return the text file in the 'original' text box
+            return render_template("removeDuplicateWords.html",original=originalFromFile,form=form)
+        else:
+            # if there's no attached file, then take the data from the form boxes
+            original = request.form['Original']
+            out = []
+            outWords = []
+            splitLinesString = original.splitlines()
+            # loop through each line
+            for i in splitLinesString:
+                # split each line into each words
+                outTemp = []
+                splitLinesWords = i.split()
+
+                # for each word, check if it's a dup
+                for j in splitLinesWords:
+                    if j not in outWords:
+                        outWords.append(j)
+                        outTemp.append(j)
+
+                out.append(' '.join(outTemp))
+
+            # join each line into one string separated by \n so HTML makes a new line
+            outFormmatted = '\n'.join(out)
+            randomNum = random.randint(0,999)
+
+            # create a text file of the formatted data, if the user would like to download
+            outputTextFile = open("./textFiles/downloads/"+str(randomNum)+".txt","w")
+            for i in outFormmatted:
+                outputTextFile.writelines(i)
+            outputTextFile.close()
+            message = 'Successfully Removed Duplicate Words'
+            # using Jinja return the data to the template
+            return render_template("removeDuplicateWords.html", message=message, json=outFormmatted, original=original, form=form, randomNum=randomNum)
+
 
 if __name__=="__main__":
     app.run(debug=True, host='0.0.0.0')
