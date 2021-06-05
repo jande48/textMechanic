@@ -89,10 +89,13 @@ def addPrefixSuffix():
             for i in outFormmatted:
                 outputTextFile.writelines(i)
             outputTextFile.close()
-            message = 'Prefixes/Suffixes were Successfully Added'
 
-            # using Jinja return the data to the template
-            return render_template("addPrefixSuffix.html", message=message, json=outFormmatted, original=original, prefix=prefix, suffix=suffix, form=form, randomNum=randomNum)
+            if len(original) > 0:
+                message = 'Prefixes/Suffixes were Successfully Added'
+                return render_template("addPrefixSuffix.html", message=message, json=outFormmatted, original=original, prefix=prefix, suffix=suffix, form=form, randomNum=randomNum)
+            else:
+                # using Jinja return the data to the template
+                return render_template("addPrefixSuffix.html", json=outFormmatted, original=original, prefix=prefix, suffix=suffix, form=form, randomNum=randomNum)
 
 
 @app.route('/removeLineBreaks',methods=['POST','GET'])
@@ -128,9 +131,13 @@ def removeLineBreaks():
             for i in outFormmatted:
                 outputTextFile.writelines(i)
             outputTextFile.close()
-            message = 'Line Breaks were Successfully Removed'
-            # using Jinja return the data to the template
-            return render_template("removeLineBreaks.html", message=message, json=outFormmatted, original=original, form=form, randomNum=randomNum)
+
+            if len(original) > 0:
+                message = 'Line Breaks were Successfully Removed'
+                return render_template("removeLineBreaks.html", message=message, json=outFormmatted, original=original, form=form, randomNum=randomNum)
+            else:    
+                # using Jinja return the data to the template
+                return render_template("removeLineBreaks.html", json=outFormmatted, original=original, form=form, randomNum=randomNum)
 
 @app.route('/removeLineNumbering',methods=['POST','GET'])
 def removeLineNumbering():
@@ -173,9 +180,12 @@ def removeLineNumbering():
                 outputTextFile.writelines(i)
             outputTextFile.close()
         
-            message = 'Line Numbers were Successfully Removed'
-            # using Jinja return the data to the template
-            return render_template("removeLineNumbering.html", message=message, json=outFormmatted, original=original, form=form, randomNum=randomNum)
+            if len(original) > 0:
+                message = 'Line Numbers were Successfully Removed'
+                return render_template("removeLineNumbering.html", message=message, json=outFormmatted, original=original, form=form, randomNum=randomNum)
+            else:
+                # using Jinja return the data to the template
+                return render_template("removeLineNumbering.html", json=outFormmatted, original=original, form=form, randomNum=randomNum)
 
 @app.route('/findReplace',methods=['POST','GET'])
 def findReplace():
@@ -214,9 +224,13 @@ def findReplace():
             for i in outFormmatted:
                 outputTextFile.writelines(i)
             outputTextFile.close()
-            message = 'Successfully Found and Replaced'
-            # using Jinja return the data to the template
-            return render_template("findReplace.html", message=message, json=outFormmatted, original=original, find=find, replace=replace, form=form, randomNum=randomNum)
+
+            if len(original) > 0:
+                message = 'Successfully Found and Replaced'
+                return render_template("findReplace.html", message=message, json=outFormmatted, original=original, find=find, replace=replace, form=form, randomNum=randomNum)
+            else:
+                # using Jinja return the data to the template
+                return render_template("findReplace.html", json=outFormmatted, original=original, find=find, replace=replace, form=form, randomNum=randomNum)
 
 @app.route('/removeDuplicateLines',methods=['POST','GET'])
 def removeDuplicateLines():
@@ -257,9 +271,13 @@ def removeDuplicateLines():
             for i in outFormmatted:
                 outputTextFile.writelines(i)
             outputTextFile.close()
-            message = 'Successfully Removed Duplicate Lines'
-            # using Jinja return the data to the template
-            return render_template("removeDuplicateLines.html", message=message, json=outFormmatted, original=original, form=form, randomNum=randomNum)
+
+            if len(original) > 0:
+                message = 'Successfully Removed Duplicate Lines'
+                return render_template("removeDuplicateLines.html", message=message, json=outFormmatted, original=original, form=form, randomNum=randomNum)
+            else:
+                # using Jinja return the data to the template
+                return render_template("removeDuplicateLines.html", json=outFormmatted, original=original, form=form, randomNum=randomNum)
 
 @app.route('/removeDuplicateWords',methods=['POST','GET'])
 def removeDuplicateWords():
@@ -308,9 +326,13 @@ def removeDuplicateWords():
             for i in outFormmatted:
                 outputTextFile.writelines(i)
             outputTextFile.close()
-            message = 'Successfully Removed Duplicate Words'
-            # using Jinja return the data to the template
-            return render_template("removeDuplicateWords.html", message=message, json=outFormmatted, original=original, form=form, randomNum=randomNum)
+
+            if len(original) > 0:
+                message = 'Successfully Removed Duplicate Words'
+                return render_template("removeDuplicateWords.html", message=message, json=outFormmatted, original=original, form=form, randomNum=randomNum)
+            else:
+                # using Jinja return the data to the template
+                return render_template("removeDuplicateWords.html", json=outFormmatted, original=original, form=form, randomNum=randomNum)
 
 
 if __name__=="__main__":
