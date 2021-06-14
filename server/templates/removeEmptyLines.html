@@ -1,0 +1,59 @@
+{%extends "layout.html"%}
+{% block content %}
+<div class="fullWidth">
+    {% if message %}
+    <div class="successMessage">
+        <h3>{{ message }}</h3>
+    </div>
+    {% endif %}
+    <h2>Remove Empty Lines</h2>
+    {% if json %} 
+            <a href="/downloads/{{ randomNum }}.txt" target="_blank">
+                <button type="submit" class="btn btn-primary btn-lg">Download Text File</button>
+            </a>
+            <h3>Formatted Text</h3>
+            <div class="fullText dataFont">
+                <textarea class="form-control" id="Formatted" name="Formatted" cols="100" rows="10" style="background-color:#F2F2F2;">{{ json }}</textarea>
+            </div>
+            
+    {% endif %}
+    <form method="POST" id="myForm" action="/removeEmptyLines" enctype="multipart/form-data">
+        <!-- Add a csrf token to avoid posts from other domains -->
+        {{ form.csrf_token }}
+        <div class="form-group">
+            <div class="fullText">
+                <h3>Original Text</h3>
+                <div class="dataFont">
+                {% if original %}
+                <textarea class="form-control" id="Original" name="Original" cols="100" rows="15" style="background-color:#F2F2F2;">{{ original }}</textarea>
+                {% else %}
+                <textarea class="form-control" id="Original" name="Original" cols="100" rows="15" style="background-color:#F2F2F2;"></textarea>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="flexContainerUpload">
+            <div class="flexsideLeftSelect">
+                <h4><input type="button" onclick="clearAllText();" class="btn btn-danger" value="Clear Form"></h4>
+            </div>
+            <div class="flexsideRightSelect">
+                <h4><input type="button" onclick="selectAllText();" class="btn btn-primary" value="Select All"></h4>
+            </div>
+        </div>
+        <div>
+            <h1>--- OR ---</h1>
+            <h3>Upload Text File</h3>
+            <div class="flexContainerUpload">
+                <div class="flexsideLeftUpload">
+                    <h4>{{ form.textUpload() }}</h4>
+                </div>
+                <div class="flexsideRightUpload">
+                    <h4><button type="submit" class="btn btn-primary">Load File</button></h4>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg">Remove Empty Lines</button>
+    </form>
+</div>
+
+{%endblock%}

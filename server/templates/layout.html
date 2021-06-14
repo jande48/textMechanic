@@ -38,7 +38,34 @@
       }
       // this javascript function selects the 'Original' HTML form element and resets it's text
       function clearAllText() {
-          document.getElementById("myForm").reset();
+          const formEl = document.getElementById("myForm");
+          formEl.reset();
+          const original = document.getElementById("Original");
+
+          if (original !== null) {
+            original.value = '';
+          }
+          
+          const prefix = document.getElementById("Prefix");
+          if (prefix !== null) {
+            prefix.value = '';
+          }
+          const suffix = document.getElementById("Suffix")
+          if (suffix !== null) {
+            suffix.value = '';
+          }
+          const find = document.getElementById("Find")
+          if (find !== null) {
+            find.value = '';
+          }
+          const replace = document.getElementById("Replace")
+          if (replace !== null) {
+            replace.value = '';
+          }
+          const formatted = document.getElementById("Formatted")
+          if (formatted !== null) {
+            formatted.value = '';
+          }
       }
     </script>
   </body>

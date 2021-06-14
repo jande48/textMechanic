@@ -279,6 +279,105 @@ def removeDuplicateLines():
                 # using Jinja return the data to the template
                 return render_template("removeDuplicateLines.html", json=outFormmatted, original=original, form=form, randomNum=randomNum)
 
+@app.route('/removeEmptyLines',methods=['POST','GET'])
+def removeEmptyLines():
+    form = MyForm()
+    # If there a get request, just return the html template
+    if request.method == "GET":
+        return render_template("removeEmptyLines.html", form=form)
+    # or for post requests:
+    else:
+        # check to see if there's an attached file
+        if len(form.textUpload.data.filename) > 0:
+            # if so, create text file in uploads and add the posted data from the user
+            filename = textFiles.save(form.textUpload.data)
+            f = open("./textFiles/uploads/"+filename, "r")
+            splitLinesString = f.readlines()
+            f.close()
+            originalFromFile = "".join(splitLinesString)
+            # then return the text file in the 'original' text box
+            return render_template("removeEmptyLines.html",original=originalFromFile,form=form)
+        else:
+            # if there's no attached file, then take the data from the form boxes
+            original = request.form['Original']
+            out = []
+
+            splitLinesString = original.splitlines()
+            # loop through each line
+            for i in splitLinesString:
+                # check if the line is aleady in out, if not, then add it
+
+                if i != '':
+                    out.append(i)
+
+            # join each line into one string separated by \n so HTML makes a new line
+            outFormmatted = '\n'.join(out)
+            randomNum = random.randint(0,999)
+
+            # create a text file of the formatted data, if the user would like to download
+            outputTextFile = open("./textFiles/downloads/"+str(randomNum)+".txt","w")
+            for i in outFormmatted:
+                outputTextFile.writelines(i)
+            outputTextFile.close()
+
+            if len(original) > 0:
+                message = 'Successfully Removed Empty Lines'
+                return render_template("removeEmptyLines.html", message=message, json=outFormmatted, original=original, form=form, randomNum=randomNum)
+            else:
+                # using Jinja return the data to the template
+                return render_template("removeEmptyLines.html", json=outFormmatted, original=original, form=form, randomNum=randomNum)
+
+@app.route('/removeEmptySpaces',methods=['POST','GET'])
+def removeEmptySpaces():
+    form = MyForm()
+    # If there a get request, just return the html template
+    if request.method == "GET":
+        return render_template("removeEmptySpaces.html", form=form)
+    # or for post requests:
+    else:
+        # check to see if there's an attached file
+        if len(form.textUpload.data.filename) > 0:
+            # if so, create text file in uploads and add the posted data from the user
+            filename = textFiles.save(form.textUpload.data)
+            f = open("./textFiles/uploads/"+filename, "r")
+            splitLinesString = f.readlines()
+            f.close()
+            originalFromFile = "".join(splitLinesString)
+            # then return the text file in the 'original' text box
+            return render_template("removeEmptySpaces.html",original=originalFromFile,form=form)
+        else:
+            # if there's no attached file, then take the data from the form boxes
+            original = request.form['Original']
+            out = []
+
+            splitLinesString = original.splitlines()
+            # loop through each line
+            for i in splitLinesString:
+                # check if the line is aleady in out, if not, then add it
+                splitLineIndex = i.split()
+                out.append(' '.join(splitLineIndex))
+                # for j in splitLineIndex:
+                #     ouputString
+                # if i != '':
+                #     out.append(i)
+
+            # join each line into one string separated by \n so HTML makes a new line
+            outFormmatted = '\n'.join(out)
+            randomNum = random.randint(0,999)
+
+            # create a text file of the formatted data, if the user would like to download
+            outputTextFile = open("./textFiles/downloads/"+str(randomNum)+".txt","w")
+            for i in outFormmatted:
+                outputTextFile.writelines(i)
+            outputTextFile.close()
+
+            if len(original) > 0:
+                message = 'Successfully Removed Empty Spaces'
+                return render_template("removeEmptySpaces.html", message=message, json=outFormmatted, original=original, form=form, randomNum=randomNum)
+            else:
+                # using Jinja return the data to the template
+                return render_template("removeEmptySpaces.html", json=outFormmatted, original=original, form=form, randomNum=randomNum)
+
 @app.route('/removeDuplicateWords',methods=['POST','GET'])
 def removeDuplicateWords():
     form = MyForm()
